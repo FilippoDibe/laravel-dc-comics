@@ -14,7 +14,7 @@ class ComicsTableSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\Comic::factory(10)->create();
+        Comic::factory(10)->create();
 
     }
 }

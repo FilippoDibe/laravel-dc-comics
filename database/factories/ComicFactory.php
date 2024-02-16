@@ -21,8 +21,7 @@ class ComicFactory extends Factory
         return [
             'title' => $this->faker->sentence,
             'description' => $this->faker->paragraph,
-            'issue_number'=> $this->faker->numberBetween(1, 100),
-            'price' =>  $this->faker->randomFloat(2, 5, 50),
+            'price' =>  $this->faker->decimal(2, 5, 50),
         ];
 
     }

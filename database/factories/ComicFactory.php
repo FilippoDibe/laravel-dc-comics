@@ -19,9 +19,9 @@ class ComicFactory extends Factory
     public function definition()
     {
         return [
-            'title' => $this->faker->sentence,
-            'description' => $this->faker->paragraph,
-            'price' =>  $this->faker->decimal(2, 5, 50),
+            "title" => fake() -> words(3, true),
+            "description" => fake() -> sentence(),
+            "price" => fake() -> numberBetween(5, 500),
         ];
 
     }

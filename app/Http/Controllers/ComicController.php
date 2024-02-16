@@ -36,15 +36,17 @@ class ComicController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'title' => 'required|string',
-            'description' => 'required|string',
-            'issue_number' => 'required|integer',
-            'price' => 'required|numeric',
-        ]);
-    Comic::create($request->all());
+        $data = $request -> all();
 
-    return redirect()->route('pages.comics.index')->with('success', 'Comic created successfuly');
+        $comic = new Comic();
+
+        $comic -> title = $data['title'];
+        $comic -> description = $data['description'];
+        $comic -> price = $data['price'];
+
+        $comic -> save();
+
+        return redirect() -> route('comic.show', $comic -> id);
     }
 
     /**
@@ -55,9 +57,11 @@ class ComicController extends Controller
      */
     public function show($id)
     {
-        $comic = Comic::findOrFail($id);
+        $comic = Comic :: find($id);
+
         return view('pages.comics.show', compact('comic'));
     }
+
 
     /**
      * Show the form for editing the specified resource.

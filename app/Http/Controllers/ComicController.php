@@ -36,17 +36,18 @@ class ComicController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request -> all();
+        $data = $request->all();
 
         $comic = new Comic();
 
-        $comic -> title = $data['title'];
-        $comic -> description = $data['description'];
-        $comic -> price = $data['price'];
+        $comic->title = $data['title'];
+        $comic->description = $data['description'];
+        $comic->price = $data['price'];
 
-        $comic -> save();
+        $comic->save();
 
-        return redirect() -> route('comic.show', $comic -> id);
+        return redirect()->route('pages.comics.show', $comic->id);
+
     }
 
     /**
@@ -59,7 +60,7 @@ class ComicController extends Controller
     {
         $comic = Comic :: find($id);
 
-        return view('pages.comics.show', compact('comic'));
+        return view('pages.comic.show', compact('comic'));
     }
 
 
@@ -69,9 +70,11 @@ class ComicController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit( $id)
     {
-        //
+        $comic = Comic :: find($id);
+        return view('pages.comic.edit', compact('comic'));
+
     }
 
     /**
@@ -83,7 +86,16 @@ class ComicController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'title' => 'required|string',
+            'description' => 'required|string',
+            'price'=> 'required|numeric',
+        ]);
+
+        $comic = Comic::find ($id);
+        $comic -> update($request->all());
+
+        return redirect()->route('pages.comic.index', compact('comic'));
     }
 
     /**
@@ -94,6 +106,9 @@ class ComicController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $comic = Comic::find($id);
+        $comic -> delete();
+
+        return redirect()->route('pages.comics.index', compact('comic'));
     }
 }

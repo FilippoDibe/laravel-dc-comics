@@ -1,7 +1,9 @@
 @extends('layouts.main-layout')
+
 @section('head')
     <title>Home</title>
 @endsection
+
 @section('content')
     <h1>Comics:</h1>
     <a href="{{ route('comic.create') }}">CREATE</a>
@@ -12,6 +14,12 @@
                 <a href="{{ route('comic.show', $comic->id) }}">
                     {{ $comic->title }}
                 </a>
+                <a href="{{ route('comic.edit', $comic->id) }}">Edit</a>
+                <form action="{{ route('comic.destroy', $comic->id) }}" method="post">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit">Delete</button>
+                </form>
             </li>
         @endforeach
     </ul>

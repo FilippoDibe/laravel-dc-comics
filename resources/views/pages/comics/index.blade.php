@@ -15,12 +15,16 @@
                     {{ $comic->title }}
                 </a>
                 <a href="{{ route('comic.edit', $comic->id) }}">Edit</a>
-                <form action="{{ route('comic.destroy', $comic->id) }}" method="post">
+                <form action="{{ route('comic.destroy', $comic->id) }}" method="post" class="delete-form">
                     @csrf
                     @method('DELETE')
-                    <button type="submit">Delete</button>
+                    <button type="button" class="delete-button">Delete</button>
                 </form>
             </li>
         @endforeach
     </ul>
+@endsection
+
+@section('scripts')
+    <script src="{{ asset('js/app.js') }}"></script>
 @endsection

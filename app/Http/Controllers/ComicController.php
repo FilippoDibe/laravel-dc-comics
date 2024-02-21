@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 use App\Models\Comic;
 use Illuminate\Http\Request;
+use App\Http\Requests\ComicRequest;
+
 
 class ComicController extends Controller
 {
@@ -34,7 +36,7 @@ class ComicController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ComicRequest $request)
     {
         $data = $request -> all();
 
@@ -85,6 +87,18 @@ class ComicController extends Controller
     public function update(Request $request, $id)
     {
 
+        // $data =$request->validate([
+        //     'title' => 'required|string|min:3|max:255',
+        //     'desctiprion '=> 'nullable|string|max:255',
+        //     'price'=> 'required|decimal:0,2',
+        // ]);
+
+        dd($data);
+        $comic = Comic ::find($id);
+
+       $comic ->  title = $data['title'];
+       $comic ->  description = $data ['description'];
+       $comic -> price  = $data ['price'];
     }
 
     /**
